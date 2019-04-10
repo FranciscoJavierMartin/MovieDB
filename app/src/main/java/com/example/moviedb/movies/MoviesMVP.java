@@ -12,7 +12,7 @@ public interface MoviesMVP {
 
     interface Presenter{
         void loadData();
-        void rxJavaUnsuscribe();
+        void rxJavaUnsubscribe();
         void setView(MoviesMVP.View view);
     }
 
