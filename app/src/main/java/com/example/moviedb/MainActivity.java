@@ -1,11 +1,13 @@
 package com.example.moviedb;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.example.moviedb.movies.ListAdapter;
@@ -64,12 +66,22 @@ public class MainActivity extends AppCompatActivity implements MoviesMVP.View {
     }
 
     @Override
-    public void updateData(ViewModel viewModel) {
-
+    protected void onStop(){
+        presenter.rxJavaUnsuscribe();
+        resultList.clear();
+        listAdapter.notifyDataSetChanged();
+        super.onStop();
     }
 
     @Override
-    public void showSnackbar(String s) {
+    public void updateData(ViewModel viewModel) {
+        resultList.add(viewModel);
+        listAdapter.notifyItemChanged(resultList.size()-1);
+        Log.d(TAG,"New information: "+viewModel.getTitle());
+    }
 
+    @Override
+    public void showSnackbar(String message) {
+        Snackbar.make(rootView,message, Snackbar.LENGTH_SHORT).show();
     }
 }

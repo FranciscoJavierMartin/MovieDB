@@ -18,7 +18,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHo
 
     private List<ViewModel> list;
 
-    private ListAdapter(List<ViewModel> list){
+    public ListAdapter(List<ViewModel> list){
         this.list = list;
     }
 
