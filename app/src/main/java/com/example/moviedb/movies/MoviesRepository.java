@@ -1,10 +1,27 @@
 package com.example.moviedb.movies;
 
+import com.example.moviedb.http.MoviesApiService;
+import com.example.moviedb.http.MoviesExtraInfoApiService;
+
 import io.reactivex.Observable;
 
-public interface MoviesRepository {
+public class MoviesRepository implements Repository {
 
-    Observable<Result> getResultData();
+    private MoviesApiService moviesApiService;
+    private MoviesExtraInfoApiService extraInfoApiService;
 
-    Observable<String> getCountryData();
+    public MoviesRepository(MoviesApiService mService, MoviesExtraInfoApiService eService){
+        this.moviesApiService = mService;
+        this.extraInfoApiService = eService;
+    }
+
+    @Override
+    public Observable<Result> getResultData() {
+        return null;
+    }
+
+    @Override
+    public Observable<String> getCountryData() {
+        return null;
+    }
 }

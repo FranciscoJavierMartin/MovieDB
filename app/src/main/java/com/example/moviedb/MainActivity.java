@@ -67,10 +67,10 @@ public class MainActivity extends AppCompatActivity implements MoviesMVP.View {
 
     @Override
     protected void onStop(){
-        presenter.rxJavaUnsuscribe();
+        super.onStop();
+        presenter.rxJavaUnsubscribe();
         resultList.clear();
         listAdapter.notifyDataSetChanged();
-        super.onStop();
     }
 
     @Override
