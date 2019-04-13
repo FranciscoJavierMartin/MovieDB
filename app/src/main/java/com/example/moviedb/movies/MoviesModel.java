@@ -1,5 +1,7 @@
 package com.example.moviedb.movies;
 
+import com.example.moviedb.http.apimodel.Result;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.BiFunction;
 
@@ -16,7 +18,7 @@ public class MoviesModel implements MoviesMVP.Model {
         return Observable.zip(repository.getResultData(), repository.getCountryData(), new BiFunction<Result, String, ViewModel>() {
             @Override
             public ViewModel apply(Result result, String country){
-                return new ViewModel(result.toString(), country);
+                return new ViewModel(result.getTitle(), country);
             }
         });
     }
