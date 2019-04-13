@@ -71,7 +71,7 @@ public class MoviesRepository implements Repository {
 
     @Override
     public Observable<Result> getResultData() {
-        return null;
+        return getResultFromCache().switchIfEmpty(getResultFromNetwork());
     }
 
     @Override
@@ -84,7 +84,13 @@ public class MoviesRepository implements Repository {
         }).concatMap(new Function<OmdbApi, ObservableSource<String>>() {
             @Override
             public ObservableSource<String> apply(OmdbApi omdbApi) {
-                return Observable.just(omdbApi.getCountry());
+                String res;
+                if(omdbApi == null || omdbApi.getCountry() == null){
+                    res = "Unknown";
+                } else {
+                    res = omdbApi.getCountry();
+                }
+                return Observable.just(res);
             }
         }).doOnNext(new Consumer<String>() {
             @Override
@@ -111,7 +117,7 @@ public class MoviesRepository implements Repository {
 
     @Override
     public Observable<String> getCountryData() {
-        return null;
+        return getCountryFromCache().switchIfEmpty(getCountryFromNetwork());
     }
 
     private boolean isUpdated(){
